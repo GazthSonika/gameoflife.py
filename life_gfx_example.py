@@ -1,4 +1,5 @@
 import pygame
+import sys
 import time
 from life import Life
 
@@ -52,9 +53,11 @@ def print_intro_txt():
     print("Screen resolution is: {}x{}".format(screen_res[0], screen_res[1])) 
     print("Cell width: {}".format(cell_size[0]))
     print("Cell height: {}".format(cell_size[1]))
+    print("Press SPACE to pause/unpause")
 
 # finally the main loop
 def  main():
+    paused = False
     print_intro_txt()
     iterations = 0
     while True:
@@ -67,6 +70,10 @@ def  main():
                 pygame.quit()
                 sys.exit()
 
+        pressed = pygame.key.get_pressed()
+        if pressed[pygame.K_SPACE]:
+            paused = not paused
+
         #clear the screen
         screen.fill(dead)
 
@@ -78,10 +85,11 @@ def  main():
         pygame.display.set_caption("Iterations: {}".format(iterations))
 
         # calculate next game state
-        life.advance()
-    
+        if not paused:
+            life.advance()
+            iterations += 1
         clock.tick(30)
-        iterations += 1
+        
 
 if __name__ == "__main__":
     main()
