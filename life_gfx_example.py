@@ -29,7 +29,7 @@ life = Life(board_size)
 #define mouse handler that allows to resurect cells durring the 'animation'
 def mouse_click(pos):
     x, y = pos
-    life.set_board_cell(x, y, 1)
+    life.set_board_cell(x/cell_size[0], y/cell_size[1], 1)
 
 def draw_board(spacing=1):
     board = life.get_board()
